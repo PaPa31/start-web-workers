@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Workers example: Multiviewer</title>
+    <script>
+        function openViewer() {
+            window.open('viewer.html');
+        }
+    </script>
+</head>
+
+<body>
+    <p><button type=button onclick="openViewer()">Open a new
+            viewer</button></p>
+    <p>Each viewer opens in a new window. You can have as many viewers
+        as you like, they all view the same data.</p>
+</body>
+
+</html>
+
+<!-- In this example, multiple windows (viewers) can be opened that are all viewing the same map. All the windows share the same map information, with a single worker coordinating all the viewers. Each viewer can move around independently, but if they set any data on the map, all the viewers are updated.
+
+The main page isn’t interesting, it merely provides a way to open the viewers -->
