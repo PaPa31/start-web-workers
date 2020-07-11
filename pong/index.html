@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<title>Shared workers: demo 2</title>
+<pre id="log">Log:</pre>
+<script>
+    var worker = new SharedWorker('test.js');
+    var log = document.getElementById('log');
+    worker.port.addEventListener('message', function (e) {
+        log.textContent += '\n' + e.data;
+    }, false);
+    worker.port.start(); // Note: Needed when using addEventListener
+    worker.port.postMessage('ping');
+</script>
+
+<!-- This second example extends the first one by changing two things: first, messages are received using addEventListener() instead of an event handler IDL attribute, and second, a message is sent to the worker, causing the worker to send another message in return. Received messages are again displayed in a log. -->
