@@ -1,0 +1,46 @@
+<button onclick="sayHI()">Say HI</button>
+<button onclick="unknownCmd()">Send unknown command</button>
+<button onclick="stop()">Stop worker</button>
+<output id="result"></output>
+
+<script>
+  function sayHI() {
+    worker.postMessage({ cmd: "start", msg: "Hi" });
+  }
+
+  function stop() {
+    // worker.terminate() from this script would also stop the worker.
+    worker.postMessage({ cmd: "stop", msg: "Bye" });
+  }
+
+  function unknownCmd() {
+    worker.postMessage({ cmd: "foobard", msg: "???" });
+  }
+
+  var worker = new Worker("doWork2.js");
+
+  worker.addEventListener(
+    "message",
+    function(e) {
+      document.getElementById("result").textContent = e.data;
+    },
+    false
+  );
+</script>
+<style>
+  p {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+  p code {
+    font-size: 0.9em;
+    color: #333;
+    font-family: "Source Code Pro", monospace;
+    _font-family: "courier new", monospace;
+  }
+</style>
+<p>
+  <strong>Note</strong>: There are two ways to stop a worker: by calling
+  <code>worker.terminate()</code> from the main page or by calling
+  <code>self.close()</code> inside of the worker itself.
+</p>
